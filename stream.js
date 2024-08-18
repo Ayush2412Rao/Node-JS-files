@@ -15,17 +15,20 @@ server.on("request",(req,res)=>{
     //     res.end(data);
     // });
     //****2nd way by creating readable stream
-    const rstream=fs.createReadStream("stream.txt");
-    rstream.on("data",(chunkdata)=>{
-        res.write(chunkdata);
-    });
-    rstream.on("end",()=>{
-        res.end();
-    });
-    rstream.on("error",(err)=>{
-        console.error(err);
-        res.end("File do not exist!!");
-    });
-    
+    // const rstream=fs.createReadStream("stream.txt");
+    // rstream.on("data",(chunkdata)=>{
+    //     res.write(chunkdata);
+    // });
+    // rstream.on("end",()=>{
+    //     res.end();
+    // });
+    // rstream.on("error",(err)=>{
+    //     console.error(err);
+    //     res.end("File do not exist!!");
+    // });`
+    //**3rd Way
+    const rstream = fs.createReadStream("stream.txt");
+    rstream.pipe(res);
+
 });
 server.listen(8000,"127.0.0.1");
